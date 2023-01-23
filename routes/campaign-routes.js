@@ -1,5 +1,6 @@
 // require Express
 const express = require('express')
+const { requireToken } = require('../config/auth') 
 const { handle404 } = require('../lib/custom-errors')
 
 // require the Model we just created
@@ -10,7 +11,7 @@ const router = express.Router()
 
 // INDEX
 // GET /campaigns
-router.get('/campaigns', (req, res, next) => {
+router.get('/campaigns', requireToken, (req, res, next) => {
 	Campaign.find()
 		.then((campaigns) => {
 			return campaigns.map((campaign) => campaign)
